@@ -53,11 +53,9 @@ router.get('/getFiles',async(req,res)=>{
             files.forEach(function (file) {
                 // Do whatever you want to do with the file
                 console.log(file)
-                let dirname=path.join(__dirname , '../public/files/')
-                let f=dirname  + file 
                 return res.render('index',{
                     title:"Dashboard",
-                    file:f
+                    file:file
                 }) 
             });
         });
