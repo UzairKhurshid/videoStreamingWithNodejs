@@ -14,6 +14,7 @@ const viewsDirectory = path.join(__dirname, '/views')
 
 app.set('views', viewsDirectory)
 app.set('view engine', 'hbs')
+app.use(express.static(publicDirectory))
 
 const routes=require('./routes/index')
 
