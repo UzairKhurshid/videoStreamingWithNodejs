@@ -14,7 +14,14 @@ var storage = multer.diskStorage({
     }
   })
    
-var upload = multer({ storage: storage })
+ const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'application/octet-stream') {
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+}
+  var upload = multer({ storage: storage ,fileFilter:fileFilter})
 
 
 
@@ -27,6 +34,12 @@ router.post('/addFile', upload.single('avatar'),async(req,res)=>{
             })
         }
         console.log(req.file)
+        
+        //save file path in db using user id from token
+        //var dirPath=path.join(__dirname,'../../../public/files/profileImages')
+        //user.avatar=dirPath + '/' + req.userID + '-'  +  path.extname(req.file.originalname) 
+        //await user.save()
+        
         return res.status(200).json({
             msg:'success'
         })
